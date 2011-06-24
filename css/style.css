@@ -3,5 +3,47 @@
 	margin:auto;
 	height:600px;
 	border:1px solid black;
-	
+    position:relative;
+}
+
+.block{
+    width:50px;
+    height:50px;
+    background: red;
+    display:inline-block;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.by1{top:50px}
+.by2{top:100px}
+.by3{top:150px}
+.by4{top:200px}
+.by5{top:250px}
+.by6{top:300px}
+.by7{top:350px}
+.by8{top:400px}
+.by9{top:450px}
+.by10{top:500px}
+.by11{top:550px}
+
+.bx1{left:50px}
+.bx2{left:100px}
+.bx3{left:150px}
+.bx4{left:200px}
+.bx5{left:250px}
+.bx6{left:300px}
+.bx7{left:350px}
+.bx8{left:400px}
+.bx9{left:450px}
+.bx10{left:500px}
+.bx11{left:550px}
+
+.t0{
+    background: silver;
+}
+
+#player{
+    background: blue;
 }
