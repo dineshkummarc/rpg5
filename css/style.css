@@ -1,4 +1,4 @@
-#game{
+#canvas{
 	width:800px;
 	margin:auto;
 	height:600px;
@@ -11,33 +11,37 @@
     height:50px;
     display:inline-block;
     position:absolute;
-    top:0;
+    bottom:0;
     left:0;
 }
 
-.by1{top:50px}
-.by2{top:100px}
-.by3{top:150px}
-.by4{top:200px}
-.by5{top:250px}
-.by6{top:300px}
-.by7{top:350px}
-.by8{top:400px}
-.by9{top:450px}
-.by10{top:500px}
-.by11{top:550px}
+.enemy{
+    background: red;
+}
 
-.bx1{left:50px}
-.bx2{left:100px}
-.bx3{left:150px}
-.bx4{left:200px}
-.bx5{left:250px}
-.bx6{left:300px}
-.bx7{left:350px}
-.bx8{left:400px}
-.bx9{left:450px}
-.bx10{left:500px}
-.bx11{left:550px}
+.v1{bottom:50px}
+.v2{bottom:100px}
+.v3{bottom:150px}
+.v4{bottom:200px}
+.v5{bottom:250px}
+.v6{bottom:300px}
+.v7{bottom:350px}
+.v8{bottom:400px}
+.v9{bottom:450px}
+.v10{bottom:500px}
+.v11{bottom:550px}
+
+.h1{left:50px}
+.h2{left:100px}
+.h3{left:150px}
+.h4{left:200px}
+.h5{left:250px}
+.h6{left:300px}
+.h7{left:350px}
+.h8{left:400px}
+.h9{left:450px}
+.h10{left:500px}
+.h11{left:550px}
 
 .t0{
     background: silver;
