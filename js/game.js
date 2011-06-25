@@ -22,7 +22,6 @@
     function displayLayout(oCanvas, iaaLoadedMap) {
 
 
-
         for (var v = 0, vmax = iaaLoadedMap.length; v < vmax; ++v) {
             var blocksLine = document.createElement('div');
             blocksLine.className = 'blocks-line';
@@ -34,13 +33,31 @@
             oCanvas.appendChild(blocksLine);
         }
     }
-    
 
+
+    /***************************************
+     PLAYER
+     ***************************************/
+
+    function createPlayer(v, h) {
+        return {v : v, h: h};
+    }
+
+
+    function displayPlayer(oCanvas, oPlayer) {
+        var oPlayerDiv = document.createElement('div');
+        oPlayerDiv.id = 'player';
+        oPlayerDiv.className = 'block';
+        oPlayerDiv.style.left = oPlayer.h * 50 + 'px';
+        oPlayerDiv.style.bottom = oPlayer.v * 50 + 'px';
+        oPlayer.div = oPlayerDiv;
+        oCanvas.appendChild(oPlayerDiv);
+    }
 
     /***************************************
      CONTROLS
      ***************************************/
-/*
+
     window.addEventListener("keydown", function(e) {
         if (e.keyCode == 40) movePlayer(2);
         if (e.keyCode == 38) movePlayer(0);
@@ -48,45 +65,36 @@
         if (e.keyCode == 39) movePlayer(1);
     }, false);
 
-    function movePlayer(direction) {
-        if (canMove(player, direction)) {
-            if (direction == 0)
-                player.v--;
-            if (direction == 1)
-                player.h++;
-            if (direction == 2)
-                player.v++;
-            if (direction == 3)
-                player.h--;
-
-            player.hp = player.h * 50;
-            player.vp = player.v * 50;
+    function movePlayer(iDirection) {
+        if (canMove(oPlayer, iDirection)) {
+            if (iDirection == 0)
+                oPlayer.v++;
+            if (iDirection == 1)
+                oPlayer.h++;
+            if (iDirection == 2)
+                oPlayer.v--;
+            if (iDirection == 3)
+                oPlayer.h--;
+            refreshPlayerPosition();
         }
+
+    }
+
+    function refreshPlayerPosition() {
+        oPlayer.div.style.left = oPlayer.h * 50 + 'px';
+        oPlayer.div.style.bottom = oPlayer.v * 50 + 'px';
     }
 
     function canMove(mob, dir) {
-
-        if (dir == 0 && !collisionsMap[mob.i][mob.j - 1])
+        if (dir == 0 && !baaCollisionsMap[mob.v + 1][mob.h])
             return true;
-        if (dir == 1 && !collisionsMap[mob.i + 1][mob.j])
+        if (dir == 1 && !baaCollisionsMap[mob.v][mob.h + 1])
             return true;
-        if (dir == 2 && !collisionsMap[mob.i][mob.j + 1])
+        if (dir == 2 && !baaCollisionsMap[mob.v - 1][mob.h])
             return true;
-        if (dir == 3 && !collisionsMap[mob.i - 1][mob.j])
+        if (dir == 3 && !baaCollisionsMap[mob.v][mob.h - 1])
             return true;
         return false;
-    }
-*/
-    function playerMoves() {
-        /*    if (oMove.down)     player.y = player.y + 2;
-         if (oMove.up)       player.y = player.y - 2;
-         if (oMove.left)     player.x = player.x - 2;
-         if (oMove.right)    player.x = player.x + 2;
-         */
-        // if (oMove.down || oMove.up)
-        playerdiv.style.top = player.y + 'px';
-        //if (oMove.left || oMove.right)
-        playerdiv.style.left = player.x + 'px';
     }
 
     /***************************************
@@ -98,7 +106,7 @@
 
         var fDensity = 0.1;
 
-        for(var v = 0, vmax = baaCollisionsMap.length; v < vmax; ++v){
+        for (var v = 0, vmax = baaCollisionsMap.length; v < vmax; ++v) {
             for (var h = 0, hmax = baaCollisionsMap[0].length; h < hmax; ++h) {
                 if (!baaCollisionsMap[v][h] && Math.random() < fDensity)
                     oaEnemies.push({h: h, v : v});
@@ -108,8 +116,8 @@
         return oaEnemies;
     }
 
-    function displayEnemies(oCanvas, oaEnemies){
-        for (var i = 0, l = oaEnemies.length; i < l; ++i){
+    function displayEnemies(oCanvas, oaEnemies) {
+        for (var i = 0, l = oaEnemies.length; i < l; ++i) {
             var oEnemyDiv = document.createElement('div');
             oEnemyDiv.className = 'block enemy';
             oEnemyDiv.style.bottom = oaEnemies[i].v * 50 + 'px';
@@ -121,46 +129,45 @@
     }
 
     function enemyMoveUp(enemy) {
-        if (canMove(enemy, 0)) {
-            enemy.v--;
-            enemy.vp = enemy.v * 50;
-        }
+        if (canMove(enemy, 0))
+            enemy.v++;
+
     }
 
     function enemyMoveRight(enemy) {
-        if (canMove(enemy, 0)) {
+        if (canMove(enemy, 1))
             enemy.h++;
-            enemy.hp = enemy.h * 50;
-        }
+
     }
 
     function enemyMoveDown(enemy) {
-        if (canMove(enemy, 0)) {
-            enemy.v++;
-            enemy.vp = enemy.v * 50;
-        }
+        if (canMove(enemy, 2))
+            enemy.v--;
     }
 
     function enemyMoveLeft(enemy) {
-        if (canMove(enemy, 0)) {
+        if (canMove(enemy, 3))
             enemy.h--;
-            enemy.hp = enemy.h * 50;
-        }
     }
 
 
-    function enemiesMoves() {
-        for (var i = 0, l = enemies.length; i < l; ++i) {
+    function refreshEnemyPosition(oEnemy) {
+        oEnemy.div.style.left = oEnemy.h * 50 + 'px';
+        oEnemy.div.style.bottom = oEnemy.v * 50 + 'px';
+    }
+
+    function enemiesMoves(oEnemies) {
+        for (var i = 0, l = oEnemies.length; i < l; ++i) {
             var dir = Math.floor(Math.random() * 4);
             if (dir == 0)
-                enemyMoveUp(enemies[i]);
+                enemyMoveUp(oEnemies[i]);
             else if (dir == 1)
-                enemyMoveRight(enemies[i]);
+                enemyMoveRight(oEnemies[i]);
             else if (dir == 2)
-                enemyMoveDown(enemies[i]);
+                enemyMoveDown(oEnemies[i]);
             else if (dir == 3)
-                enemyMoveLeft(enemies[i]);
-
+                enemyMoveLeft(oEnemies[i]);
+            refreshEnemyPosition(oEnemies[i])
 
             /*        if (enemies[i].dir == 0) enemies[i].y--;
              if (enemies[i].dir == 1) enemies[i].x++;
@@ -179,8 +186,7 @@
              enemies[i].dir = Math.floor(Math.random() * 4);
 
              */
-            enemies[i].div.style.left = enemies[i].x + 'px';
-            enemies[i].div.style.top = enemies[i].y + 'px';
+
 
         }
     }
@@ -190,19 +196,7 @@
      ***************************************/
 
 
-    var player = {
-        h : 6,
-        v : 3
-    };
-
     var oCanvas = document.getElementById('canvas');
-    /*var playerdiv = document.createElement('div');
-    playerdiv.id = 'player';
-    playerdiv.className = 'block';
-    playerdiv.style.left = player.hp + 'px';
-    playerdiv.style.top = player.vp + 'px';
-    game.appendChild(playerdiv);*/
-
 
 
     var iaaLoadedMap = [
@@ -222,33 +216,29 @@
     iaaLoadedMap.reverse();
     displayLayout(oCanvas, iaaLoadedMap);
 
+    var oPlayer = createPlayer(2, 6);
+    displayPlayer(oCanvas, oPlayer);
     var baaCollisionsMap = getCollisionsMap(iaaLoadedMap);
     var oaEnemies = generateEnemies(baaCollisionsMap);
     displayEnemies(oCanvas, oaEnemies);
-
 
 
     /***************************************
      MAIN LOOP
      ***************************************/
 
-    //setInterval(mainLoop, 16);
-   // setInterval(enemiesLoop, 1000);
+    setInterval(mainLoop, 16);
+    setInterval(enemiesLoop, 1000);
 
     function enemiesLoop() {
-        enemiesMoves();
+        enemiesMoves(oaEnemies);
     }
 
     function mainLoop() {
-        playerMoves();
 
-
-        /*
-         for (var currentEnemy in enemies){
-         currentEnemy.x++;
-         currentEnemy.div.style.left = currentEnemy.x;
-         }
-         */
     }
 
-})(window);
+}
+
+        )
+        (window);
