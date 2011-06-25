@@ -44,5 +44,11 @@ define(['js/game.js'], function(Game) {
                 return true;
             return false;
         }
+
+    return {
+        canMove : canMove,
+        refreshPlayerPosition: refreshPlayerPosition,
+        movePlayer: movePlayer
+    }
     
 });

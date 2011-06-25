@@ -8,30 +8,12 @@ require(['js/game.js', 'js/map.js'  , 'js/player.js', 'js/controls.js', 'js/ia.j
                 Player.displayPlayer(Game.canvas, Game.player);
                 IA.displayEnemies(Game.canvas, IA.enemies);
 
+                setInterval(enemiesLoop, 1000);
+
+                function enemiesLoop() {
+                    IA.enemiesMoves(IA.enemies);
+                }
+
             });
 
         });
-
-
-/*
-
- /***************************************
- MAIN LOOP
- ***************************************/
-/*
- setInterval(mainLoop, 16);
- setInterval(enemiesLoop, 1000);
-
- function enemiesLoop() {
- enemiesMoves(oaEnemies);
- }
-
- function mainLoop() {
- refreshPlayerPosition();
- refreshEnemiesPositions(oaEnemies);
- }
-
-
-
- });
- });*/

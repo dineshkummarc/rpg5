@@ -1,4 +1,4 @@
-define(['js/game.js'], function(Game) {
+define(['js/game.js', 'js/controls.js'], function(Game, Controls) {
 
     function generateEnemies(baaCollisionsMap) {
             var oaEnemies = [];
@@ -35,24 +35,24 @@ define(['js/game.js'], function(Game) {
         },
 
         enemyMoveUp: function(enemy) {
-            if (canMove(enemy, 0))
+            if (Controls.canMove(enemy, 0))
                 enemy.v++;
 
         },
 
         enemyMoveRight: function(enemy) {
-            if (canMove(enemy, 1))
+            if (Controls.canMove(enemy, 1))
                 enemy.h++;
 
         },
 
         enemyMoveDown: function(enemy) {
-            if (canMove(enemy, 2))
+            if (Controls.canMove(enemy, 2))
                 enemy.v--;
         },
 
         enemyMoveLeft: function(enemy) {
-            if (canMove(enemy, 3))
+            if (Controls.canMove(enemy, 3))
                 enemy.h--;
         },
 
@@ -70,14 +70,14 @@ define(['js/game.js'], function(Game) {
             for (var i = 0, l = oEnemies.length; i < l; ++i) {
                 var dir = Math.floor(Math.random() * 4);
                 if (dir == 0)
-                    enemyMoveUp(oEnemies[i]);
+                    this.enemyMoveUp(oEnemies[i]);
                 else if (dir == 1)
-                    enemyMoveRight(oEnemies[i]);
+                    this.enemyMoveRight(oEnemies[i]);
                 else if (dir == 2)
-                    enemyMoveDown(oEnemies[i]);
+                    this.enemyMoveDown(oEnemies[i]);
                 else if (dir == 3)
-                    enemyMoveLeft(oEnemies[i]);
-                refreshEnemyPosition(oEnemies[i])
+                    this.enemyMoveLeft(oEnemies[i]);
+                this.refreshEnemyPosition(oEnemies[i])
 
                 /*        if (enemies[i].dir == 0) enemies[i].y--;
                  if (enemies[i].dir == 1) enemies[i].x++;
