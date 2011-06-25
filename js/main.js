@@ -13,15 +13,7 @@ require(['js/game.js', 'js/map.js'  , 'js/player.js', 'js/controls.js', 'js/ia.j
         });
 
 
-/*require([
- 'js/init.js',
- 'js/map.js',
- 'js/player.js',
- 'js/controls.js',
- 'js/ia.js'
-
- ], function(){
- require.ready(function(){
+/*
 
  /***************************************
  MAIN LOOP

@@ -1,4 +1,4 @@
-define(function() {
+define(['js/game.js'], function(Game) {
 
     window.addEventListener("keydown", function(e) {
         if (e.keyCode == 40) movePlayer(2);
@@ -14,33 +14,33 @@ define(function() {
 
 
         function movePlayer (iDirection) {
-            if (canMove(oPlayer, iDirection)) {
+            if (canMove(Game.player, iDirection)) {
                 if (iDirection == 0)
-                    oPlayer.v++;
+                    Game.player.v++;
                 if (iDirection == 1)
-                    oPlayer.h++;
+                    Game.player.h++;
                 if (iDirection == 2)
-                    oPlayer.v--;
+                    Game.player.v--;
                 if (iDirection == 3)
-                    oPlayer.h--;
+                    Game.player.h--;
                 refreshPlayerPosition();
             }
 
         }
 
         function refreshPlayerPosition () {
-            oPlayer.div.style.left = oPlayer.h * 50 + 'px';
-            oPlayer.div.style.bottom = oPlayer.v * 50 + 'px';
+            Game.player.div.style.left = Game.player.h * 50 + 'px';
+            Game.player.div.style.bottom = Game.player.v * 50 + 'px';
         }
 
         function canMove (mob, dir) {
-            if (dir == 0 && !baaCollisionsMap[mob.v + 1][mob.h])
+            if (dir == 0 && !Game.collisionsMap[mob.v + 1][mob.h])
                 return true;
-            if (dir == 1 && !baaCollisionsMap[mob.v][mob.h + 1])
+            if (dir == 1 && !Game.collisionsMap[mob.v][mob.h + 1])
                 return true;
-            if (dir == 2 && !baaCollisionsMap[mob.v - 1][mob.h])
+            if (dir == 2 && !Game.collisionsMap[mob.v - 1][mob.h])
                 return true;
-            if (dir == 3 && !baaCollisionsMap[mob.v][mob.h - 1])
+            if (dir == 3 && !Game.collisionsMap[mob.v][mob.h - 1])
                 return true;
             return false;
         }
