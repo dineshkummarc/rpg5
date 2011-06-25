@@ -151,6 +151,10 @@
     }
 
 
+    function refreshEnemiesPositions(oEnemies) {
+
+    }
+
     function refreshEnemyPosition(oEnemy) {
         oEnemy.div.style.left = oEnemy.h * 50 + 'px';
         oEnemy.div.style.bottom = oEnemy.v * 50 + 'px';
@@ -235,10 +239,8 @@
     }
 
     function mainLoop() {
-
+        refreshPlayerPosition();
+        refreshEnemiesPositions(oaEnemies);
     }
 
-}
-
-        )
-        (window);
+})(window);
